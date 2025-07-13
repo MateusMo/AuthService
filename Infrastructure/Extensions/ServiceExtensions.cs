@@ -9,55 +9,67 @@ using Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Infrastructure.Messaging.Interfaces;
+using Infrastructure.Messaging.Services;
 
 namespace Infrastructure.Extensions;
 
-public static class ServiceExtensions
+public static class InfrastructureExtensions
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        // Configurar MongoDB Settings
+        // Configurações
         services.Configure<MongoDbSettings>(configuration.GetSection("MongoDbSettings"));
-        
-        // Configurar JWT Settings
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
-        
-        // Registrar contexto do MongoDB
+        services.Configure<RabbitMQSettings>(configuration.GetSection("RabbitMQSettings")); // 🆕 NOVO
+
+        // MongoDB
         services.AddSingleton<MongoDbContext>();
         
-        // Registrar repositórios
+        // Repositories
         services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
         
-        // Registrar serviços
+        // Services
         services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IPasswordService, PasswordService>();
         
-        // Configurar autenticação JWT
-        var jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>();
-        var key = Encoding.ASCII.GetBytes(jwtSettings.SecretKey);
+        // 🆕 NOVO: RabbitMQ Services
+        services.AddSingleton<IMessageProducer, RabbitMQProducer>();
+        services.AddHostedService<RabbitMQConsumer>();
         
-        services.AddAuthentication(x =>
+        // JWT Authentication
+        services.AddJwtAuthentication(configuration);
+        
+        return services;
+    }
+
+    private static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
+    {
+        var jwtSettings = configuration.GetSection("JwtSettings");
+        var secretKey = jwtSettings["SecretKey"];
+        var issuer = jwtSettings["Issuer"];
+        var audience = jwtSettings["Audience"];
+
+        services.AddAuthentication(options =>
         {
-            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         })
-        .AddJwtBearer(x =>
+        .AddJwtBearer(options =>
         {
-            x.RequireHttpsMetadata = false;
-            x.SaveToken = true;
-            x.TokenValidationParameters = new TokenValidationParameters
+            options.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidateIssuer = true,
-                ValidIssuer = jwtSettings.Issuer,
                 ValidateAudience = true,
-                ValidAudience = jwtSettings.Audience,
                 ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = issuer,
+                ValidAudience = audience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
                 ClockSkew = TimeSpan.Zero
             };
         });
-        
+
         return services;
     }
 }

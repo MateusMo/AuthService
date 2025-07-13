@@ -1,9 +1,13 @@
 using AuthService.DTO;
 using Domain;
+using Infrastructure.Configuration;
+using Infrastructure.Messaging.Interfaces;
+using Infrastructure.Messaging.Models;
 using Infrastructure.Repositories.Interfaces;
 using Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace AuthService.Controllers;
 
@@ -13,17 +17,23 @@ public class GerenteController : ControllerBase
 {
     private readonly IFuncionarioRepository _funcionarioRepository;
     private readonly IPasswordService _passwordService;
+    private readonly IMessageProducer _messageProducer; 
+    private readonly RabbitMQSettings _rabbitSettings; 
 
     public GerenteController(
         IFuncionarioRepository funcionarioRepository,
-        IPasswordService passwordService)
+        IPasswordService passwordService,
+        IMessageProducer messageProducer, 
+        IOptions<RabbitMQSettings> rabbitSettings) 
     {
         _funcionarioRepository = funcionarioRepository;
         _passwordService = passwordService;
+        _messageProducer = messageProducer; 
+        _rabbitSettings = rabbitSettings.Value; 
     }
 
     [HttpGet]
-    [Authorize] // Proteger apenas este endpoint
+    [Authorize]
     public async Task<ActionResult<IEnumerable<GerenteResponseDto>>> GetAll()
     {
         try
@@ -49,7 +59,7 @@ public class GerenteController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize] // Proteger apenas este endpoint
+    [Authorize]
     public async Task<ActionResult<GerenteResponseDto>> GetById(string id)
     {
         try
@@ -81,7 +91,6 @@ public class GerenteController : ControllerBase
     }
 
     [HttpPost]
-    // Removido [Authorize] - endpoint público para criação
     public async Task<ActionResult<GerenteResponseDto>> Create([FromBody] GerenteCreateDto gerenteDto)
     {
         try
@@ -91,13 +100,11 @@ public class GerenteController : ControllerBase
                 return BadRequest(ModelState);
             }
 
-            // Verificar se email já existe
             if (await _funcionarioRepository.ExistsByEmailAsync(gerenteDto.Email))
             {
                 return Conflict(new { message = "Email já está em uso" });
             }
 
-            // Criar novo gerente
             var gerente = new Gerente
             {
                 Nome = gerenteDto.Nome,
@@ -108,6 +115,18 @@ public class GerenteController : ControllerBase
 
             var gerenteCriado = await _funcionarioRepository.CreateAsync(gerente);
             var gerenteResponse = (Gerente)gerenteCriado;
+
+            // 🆕 NOVO: Publicar mensagem no RabbitMQ
+            var message = new GerenteCreatedMessage
+            {
+                GerenteId = gerenteResponse.Id,
+                Nome = gerenteResponse.Nome,
+                Email = gerenteResponse.Email,
+                Nivel = gerenteResponse.Nivel,
+                DataCriacao = gerenteResponse.DataCriacao
+            };
+
+            await _messageProducer.PublishAsync(message, _rabbitSettings.Queues.GerenteCreated);
 
             var response = new GerenteResponseDto
             {
@@ -128,7 +147,7 @@ public class GerenteController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Authorize] // Proteger apenas este endpoint
+    [Authorize]
     public async Task<ActionResult<GerenteResponseDto>> Update(string id, [FromBody] GerenteUpdateDto gerenteDto)
     {
         try
@@ -146,14 +165,12 @@ public class GerenteController : ControllerBase
 
             var gerenteExistente = (Gerente)funcionarioExistente;
 
-            // Verificar se email já existe (exceto o próprio)
             var funcionarioComEmail = await _funcionarioRepository.GetByEmailAsync(gerenteDto.Email);
             if (funcionarioComEmail != null && funcionarioComEmail.Id != id)
             {
                 return Conflict(new { message = "Email já está em uso" });
             }
 
-            // Atualizar dados
             gerenteExistente.Nome = gerenteDto.Nome;
             gerenteExistente.Email = gerenteDto.Email;
             gerenteExistente.Nivel = gerenteDto.Nivel;
@@ -164,6 +181,17 @@ public class GerenteController : ControllerBase
             {
                 return BadRequest(new { message = "Erro ao atualizar gerente" });
             }
+
+            // 🆕 NOVO: Publicar mensagem no RabbitMQ
+            var message = new GerenteUpdatedMessage
+            {
+                GerenteId = gerenteExistente.Id,
+                Nome = gerenteExistente.Nome,
+                Email = gerenteExistente.Email,
+                Nivel = gerenteExistente.Nivel
+            };
+
+            await _messageProducer.PublishAsync(message, _rabbitSettings.Queues.GerenteUpdated);
 
             var response = new GerenteResponseDto
             {
@@ -184,7 +212,7 @@ public class GerenteController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize] // Proteger apenas este endpoint
+    [Authorize]
     public async Task<ActionResult> Delete(string id)
     {
         try
@@ -195,12 +223,24 @@ public class GerenteController : ControllerBase
                 return NotFound(new { message = "Gerente não encontrado" });
             }
 
+            var gerente = (Gerente)funcionario;
+
             var sucesso = await _funcionarioRepository.DeleteAsync(id);
             
             if (!sucesso)
             {
                 return BadRequest(new { message = "Erro ao deletar gerente" });
             }
+
+            // 🆕 NOVO: Publicar mensagem no RabbitMQ
+            var message = new GerenteDeletedMessage
+            {
+                GerenteId = gerente.Id,
+                Nome = gerente.Nome,
+                Email = gerente.Email
+            };
+
+            await _messageProducer.PublishAsync(message, _rabbitSettings.Queues.GerenteDeleted);
 
             return Ok(new { message = "Gerente deletado com sucesso" });
         }
@@ -211,7 +251,7 @@ public class GerenteController : ControllerBase
     }
 
     [HttpGet("email/{email}")]
-    [Authorize] // Proteger apenas este endpoint
+    [Authorize]
     public async Task<ActionResult<GerenteResponseDto>> GetByEmail(string email)
     {
         try

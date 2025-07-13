@@ -1,7 +1,11 @@
 using AuthService.DTO;
+using Infrastructure.Messaging.Interfaces;
+using Infrastructure.Messaging.Models;
 using Infrastructure.Repositories.Interfaces;
 using Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Infrastructure.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace AuthService.Controllers;
 
@@ -12,15 +16,21 @@ public class LoginController : ControllerBase
     private readonly IFuncionarioRepository _funcionarioRepository;
     private readonly IJwtService _jwtService;
     private readonly IPasswordService _passwordService;
+    private readonly IMessageProducer _messageProducer;
+    private readonly RabbitMQSettings _rabbitSettings;
 
     public LoginController(
         IFuncionarioRepository funcionarioRepository,
         IJwtService jwtService,
-        IPasswordService passwordService)
+        IPasswordService passwordService,
+        IMessageProducer messageProducer,
+        IOptions<RabbitMQSettings> rabbitSettings)
     {
         _funcionarioRepository = funcionarioRepository;
         _jwtService = jwtService;
         _passwordService = passwordService;
+        _messageProducer = messageProducer;
+        _rabbitSettings = rabbitSettings.Value;
     }
 
     [HttpGet, Route("Healthy")]
@@ -56,6 +66,20 @@ public class LoginController : ControllerBase
             // Gerar token JWT
             var token = _jwtService.GenerateToken(funcionario);
 
+            // Publicar mensagem de login no RabbitMQ
+            var message = new UserLoginMessage
+            {
+                UserId = funcionario.Id,
+                Email = funcionario.Email,
+                Nome = funcionario.Nome,
+                Tipo = funcionario.Tipo,
+                LoginTime = DateTime.UtcNow,
+                IpAddress = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "IP não disponível"
+            };
+            
+            await _messageProducer.PublishAsync(message, _rabbitSettings.Queues.UserLogin);
+
+            // Mantendo exatamente a mesma estrutura de retorno
             var response = new TokenResponseDto
             {
                 Token = token,

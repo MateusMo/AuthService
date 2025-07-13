@@ -8,7 +8,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ee145e4-c88c-42a5-8d9c-422b7cf299a7" name="Changes" comment="" />
+    <list default="true" id="7ee145e4-c88c-42a5-8d9c-422b7cf299a7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Infrastructure/Configuration/QueueSettings.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Infrastructure/Configuration/RabbitMQSettings.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Interfaces/IMessageConsumer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Interfaces/IMessageProducer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Models/BaseMessage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Models/GerenteCreatedMessage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Models/GerenteDeletedMessage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Models/GerenteUpdatedMessage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Models/UserLoginMessage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Services/RabbitMQConsumer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Services/RabbitMQProducer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.AuthService/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AuthService/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/Controllers/GerenteController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/Controllers/GerenteController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/Controllers/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/Controllers/LoginController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/Extensions/ServiceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/Extensions/ServiceExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,34 +36,41 @@
   <component name="DpaMonitoringSettings">
     <option name="firstShow" value="false" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2zZKEfInuLuLusxR6nP0Ocgikba" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.AuthService: http.executor&quot;: &quot;Debug&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.AuthService: http.executor": "Debug",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;yaml&quot;,
-      &quot;HgIgnore&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "yaml",
+      "HgIgnore"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.AuthService: http">
     <configuration name="AuthService: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/AuthService/AuthService.csproj" />
@@ -86,7 +112,7 @@
       <updated>1751933046055</updated>
       <workItem from="1751933047420" duration="2086000" />
       <workItem from="1752353119166" duration="9649000" />
-      <workItem from="1752436331578" duration="1126000" />
+      <workItem from="1752436331578" duration="3926000" />
     </task>
     <servers />
   </component>
