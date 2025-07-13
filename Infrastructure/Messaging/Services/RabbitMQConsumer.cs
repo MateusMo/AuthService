@@ -48,9 +48,9 @@ public class RabbitMQConsumer : BackgroundService, IMessageConsumer
     private async Task StartConsumingAsync(CancellationToken cancellationToken)
     {
         // Consumir mensagens de diferentes filas
-        await ConsumeQueue(_settings.Queues.GerenteCreated, ProcessGerenteCreatedMessage, cancellationToken);
-        await ConsumeQueue(_settings.Queues.GerenteUpdated, ProcessGerenteUpdatedMessage, cancellationToken);
-        await ConsumeQueue(_settings.Queues.GerenteDeleted, ProcessGerenteDeletedMessage, cancellationToken);
+        await ConsumeQueue(_settings.Queues.FuncionarioCreated, ProcessGerenteCreatedMessage, cancellationToken);
+        await ConsumeQueue(_settings.Queues.FuncionarioUpdated, ProcessGerenteUpdatedMessage, cancellationToken);
+        await ConsumeQueue(_settings.Queues.FuncionarioDeleted, ProcessGerenteDeletedMessage, cancellationToken);
         await ConsumeQueue(_settings.Queues.UserLogin, ProcessUserLoginMessage, cancellationToken);
 
         // Manter o consumer rodando
@@ -95,8 +95,8 @@ public class RabbitMQConsumer : BackgroundService, IMessageConsumer
 
     private async Task ProcessGerenteCreatedMessage(string message)
     {
-        var gerenteMessage = JsonConvert.DeserializeObject<GerenteCreatedMessage>(message);
-        _logger.LogInformation("Processando GerenteCreated: {GerenteId} - {Nome}", gerenteMessage?.GerenteId, gerenteMessage?.Nome);
+        var funcionarioMessage = JsonConvert.DeserializeObject<FuncionarioCreatedMessage>(message);
+        _logger.LogInformation("Processando GerenteCreated: {FuncionarioId} - {Nome}", funcionarioMessage?.FuncionarioId, funcionarioMessage?.Nome);
         
         // Aqui você pode implementar lógica adicional
         // Por exemplo: enviar email, notificar outros sistemas, etc.
@@ -106,16 +106,16 @@ public class RabbitMQConsumer : BackgroundService, IMessageConsumer
 
     private async Task ProcessGerenteUpdatedMessage(string message)
     {
-        var gerenteMessage = JsonConvert.DeserializeObject<GerenteUpdatedMessage>(message);
-        _logger.LogInformation("Processando GerenteUpdated: {GerenteId} - {Nome}", gerenteMessage?.GerenteId, gerenteMessage?.Nome);
+        var funcionarioMessage = JsonConvert.DeserializeObject<FuncionarioUpdatedMessage>(message);
+        _logger.LogInformation("Processando GerenteUpdated: {FuncionarioId} - {Nome}", funcionarioMessage?.FuncionarioId, funcionarioMessage?.Nome);
         
         await Task.CompletedTask;
     }
 
     private async Task ProcessGerenteDeletedMessage(string message)
     {
-        var gerenteMessage = JsonConvert.DeserializeObject<GerenteDeletedMessage>(message);
-        _logger.LogInformation("Processando GerenteDeleted: {GerenteId} - {Nome}", gerenteMessage?.GerenteId, gerenteMessage?.Nome);
+        var funcionarioMessage = JsonConvert.DeserializeObject<FuncionarioDeletedMessage>(message);
+        _logger.LogInformation("Processando GerenteDeleted: {FuncionarioId} - {Nome}", funcionarioMessage?.FuncionarioId, funcionarioMessage?.Nome);
         
         await Task.CompletedTask;
     }

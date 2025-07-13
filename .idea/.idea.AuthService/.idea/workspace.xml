@@ -9,24 +9,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ee145e4-c88c-42a5-8d9c-422b7cf299a7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Infrastructure/Configuration/QueueSettings.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Infrastructure/Configuration/RabbitMQSettings.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Interfaces/IMessageConsumer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Interfaces/IMessageProducer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Models/BaseMessage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Models/GerenteCreatedMessage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Models/GerenteDeletedMessage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Models/GerenteUpdatedMessage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Models/UserLoginMessage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Services/RabbitMQConsumer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Services/RabbitMQProducer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AuthService/Controllers/FuncionarioController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AuthService/DTO/FuncionarioCreateDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AuthService/DTO/FuncionarioResponseDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AuthService/DTO/FuncionarioUpdateDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Models/FuncionarioCreatedMessage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Models/FuncionarioDeletedMessage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Models/FuncionarioUpdatedMessage.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AuthService/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AuthService/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthService/Controllers/GerenteController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/Controllers/GerenteController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/Controllers/GerenteController.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/AuthService/Controllers/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/Controllers/LoginController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthService/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/Extensions/ServiceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/Extensions/ServiceExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Infrastructure/Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/Infrastructure.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/DTO/GerenteCreateDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/DTO/TokenResponseDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/DTO/TokenResponseDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/AuthContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Data.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/FluentMap/GerenteMap.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Repository/GerenteRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Repository/IGerenteRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/Funcionario.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Funcionario.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/Gerente.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/Configuration/QueueSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/Configuration/QueueSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/Messaging/Models/GerenteCreatedMessage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/Messaging/Models/GerenteDeletedMessage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/Messaging/Models/GerenteUpdatedMessage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/Messaging/Services/RabbitMQConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/Messaging/Services/RabbitMQConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/Persistence/MongoDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/Persistence/MongoDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/Repositories/Interfaces/IFuncionarioRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/Repositories/Interfaces/IFuncionarioRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +120,7 @@
       <updated>1751933046055</updated>
       <workItem from="1751933047420" duration="2086000" />
       <workItem from="1752353119166" duration="9649000" />
-      <workItem from="1752436331578" duration="3926000" />
+      <workItem from="1752436331578" duration="6286000" />
     </task>
     <servers />
   </component>

@@ -20,6 +20,4 @@ public class MongoDbContext
     public IMongoCollection<Funcionario> Funcionarios => 
         _database.GetCollection<Funcionario>(_settings.FuncionariosCollectionName);
     
-    public IMongoCollection<Gerente> Gerentes => 
-        _database.GetCollection<Gerente>(_settings.FuncionariosCollectionName);
 }

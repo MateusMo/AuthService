@@ -84,14 +84,14 @@ public class LoginController : ControllerBase
             {
                 Token = token,
                 ExpiresAt = DateTime.UtcNow.AddHours(1),
-                Usuario = new GerenteResponseDto
+                Usuario = new FuncionarioResponseDto()
                 {
                     Id = funcionario.Id,
                     Nome = funcionario.Nome,
                     Email = funcionario.Email,
                     Tipo = funcionario.Tipo,
                     DataCriacao = funcionario.DataCriacao,
-                    Nivel = funcionario is Domain.Gerente gerente ? gerente.Nivel : 1
+                    Nivel = funcionario is Domain.Funcionario gerente ? gerente.Nivel : 1
                 }
             };
 

@@ -1,15 +1,16 @@
 namespace Infrastructure.Messaging.Models;
 
-public class GerenteUpdatedMessage : BaseMessage
+public class FuncionarioUpdatedMessage : BaseMessage
 {
-    public GerenteUpdatedMessage()
+    public FuncionarioUpdatedMessage()
     {
-        EventType = "GerenteUpdated";
+        EventType = "FuncionarioUpdated";
     }
 
-    public string GerenteId { get; set; } = string.Empty;
+    public string FuncionarioId { get; set; } = string.Empty;
     public string Nome { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
+    public string Tipo { get; set; } = string.Empty;
     public int Nivel { get; set; }
     public DateTime DataAtualizacao { get; set; } = DateTime.UtcNow;
 }

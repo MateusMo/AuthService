@@ -1,7 +1,7 @@
 public class QueueSettings
 {
-    public string GerenteCreated { get; set; } = "gerente.created";
-    public string GerenteUpdated { get; set; } = "gerente.updated";
-    public string GerenteDeleted { get; set; } = "gerente.deleted";
+    public string FuncionarioCreated { get; set; } = "funcionario.created";
+    public string FuncionarioUpdated { get; set; } = "funcionario.updated";
+    public string FuncionarioDeleted { get; set; } = "funcionario.deleted";
     public string UserLogin { get; set; } = "user.login";
 }
