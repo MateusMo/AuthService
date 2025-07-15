@@ -5,7 +5,11 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 # Copia os arquivos de projeto (.csproj e .sln)
-COPY . .
+COPY AuthService.sln ./
+COPY AuthService/*.csproj ./AuthService/
+COPY Domain/*.csproj ./Domain/
+COPY Infrastructure/*.csproj ./Infrastructure/
+COPY Test/*.csproj ./Test/
 
 # Restaura as dependências
 RUN dotnet restore
