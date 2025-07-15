@@ -30,14 +30,13 @@ services:
     networks:
       - auth-network
 
-  
   rabbitmq:
     image: rabbitmq:3.12-management
     container_name: authservice-rabbitmq
     restart: always
     ports:
-      - "5672:5672"    
-      - "15672:15672"  
+      - "5672:5672"
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: password123
@@ -46,9 +45,23 @@ services:
     networks:
       - auth-network
 
+  authservice:
+    image: mateusmo/authservice:latest  
+    container_name: authservice-app
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - mongodb
+      - rabbitmq
+    networks:
+      - auth-network
+
 volumes:
   mongodb_data:
-  rabbitmq_data:  
+  rabbitmq_data:
 
 networks:
   auth-network:
