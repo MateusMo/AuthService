@@ -33,6 +33,21 @@ public class LoginController : ControllerBase
         _rabbitSettings = rabbitSettings.Value;
     }
 
+    [HttpGet]
+    [Route("/")]
+    public IActionResult Root()
+    {
+        return Ok(new { 
+            message = "AuthService API está funcionando!", 
+            endpoints = new[] {
+                "/swagger",
+                "/api/Funcionario",
+                "/Login"
+            },
+            timestamp = DateTime.UtcNow 
+        });
+    }
+    
     [HttpGet, Route("Healthy")]
     public async Task<IActionResult> Healthy()
     {

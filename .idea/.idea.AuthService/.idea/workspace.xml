@@ -8,7 +8,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ee145e4-c88c-42a5-8d9c-422b7cf299a7" name="Changes" comment="" />
+    <list default="true" id="7ee145e4-c88c-42a5-8d9c-422b7cf299a7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.AuthService/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AuthService/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/Controllers/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/Controllers/LoginController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,6 +42,7 @@
     ".NET Launch Settings Profile.AuthService: http.executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -93,7 +99,8 @@
       <updated>1751933046055</updated>
       <workItem from="1751933047420" duration="2086000" />
       <workItem from="1752353119166" duration="9649000" />
-      <workItem from="1752436331578" duration="12672000" />
+      <workItem from="1752436331578" duration="14824000" />
+      <workItem from="1752799531639" duration="1661000" />
     </task>
     <servers />
   </component>
