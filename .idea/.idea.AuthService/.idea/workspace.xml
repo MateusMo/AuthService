@@ -9,9 +9,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ee145e4-c88c-42a5-8d9c-422b7cf299a7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AuthService/Controllers/HomeController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AuthService/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AuthService/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthService/Controllers/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/Controllers/LoginController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/appsettings.Development.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +98,7 @@
       <workItem from="1751933047420" duration="2086000" />
       <workItem from="1752353119166" duration="9649000" />
       <workItem from="1752436331578" duration="14824000" />
-      <workItem from="1752799531639" duration="2462000" />
+      <workItem from="1752799531639" duration="3496000" />
     </task>
     <servers />
   </component>
