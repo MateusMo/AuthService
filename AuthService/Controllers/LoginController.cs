@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 namespace AuthService.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class LoginController : ControllerBase
 {
     private readonly IFuncionarioRepository _funcionarioRepository;
@@ -34,27 +34,14 @@ public class LoginController : ControllerBase
     }
 
     [HttpGet]
-    [Route("/")]
-    public IActionResult Root()
-    {
-        return Ok(new { 
-            message = "AuthService API está funcionando!", 
-            endpoints = new[] {
-                "/swagger",
-                "/api/Funcionario",
-                "/Login"
-            },
-            timestamp = DateTime.UtcNow 
-        });
-    }
-    
-    [HttpGet, Route("Healthy")]
+    [Route("healthy")]
     public async Task<IActionResult> Healthy()
     {
         return Ok(new { status = "API funcionando!", timestamp = DateTime.UtcNow });
     }
 
     [HttpPost]
+    [Route("authenticate")]
     public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
     {
         try
